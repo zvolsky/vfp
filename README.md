@@ -4,7 +4,8 @@ Few **python utils**, f.e. **file utils**.
 *Syntax of some of them is similar to visual foxpro.*
 
 ```python
-.filetostr(filename)                        # read the file AS IS
+.filetostr(filename)                        # read the file (in its coding)
+.filelines(filename)                        # get lines of file as list
 .strtofile(content, filename, additive)     # write str or encode&write unicode
 .strtoutf8file(content, filename, additive) # write unicode or decode&write str
                                             #       into utf8 file

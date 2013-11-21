@@ -53,21 +53,30 @@ def rename(src, dst):
         remove(dst)
     os.rename(src, dst)
 
-def remove(path):
+def remove(fname):
     """removes file, without error if file doesn't exist"""
     try:
-        os.remove(path)
+        os.remove(fname)
     except:
         pass
-    if os.path.isfile(path):
-        raise OSError, 'cannot delete %s'%path
+    if os.path.isfile(fname):
+        raise OSError, 'cannot delete %s'%fname
 
-def filetostr(fname):
+def filetostr(fname, nofile_as_empty=False):
     """return content of the file"""
-    f = open(fname, 'rb')
-    content = f.read()
-    f.close()
+    try:
+        with open(fname, 'rb') as f:
+            content = f.read()
+    except IOError:
+        if nofile_as_empty: 
+            content = ''
+        else:
+            raise IOError, 'failed to read %s'%fname
     return content
+
+def filelines(fname):
+    """return lines of file (or empty list if file doesn't exist"""
+    return filetostr(fname, nofile_as_empty=True).splitlines()
 
 def strtofile(content, fname, additive=0, unicode_encoding=usual_encoding):
     """writes string to file
