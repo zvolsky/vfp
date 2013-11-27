@@ -147,5 +147,5 @@ def suredir(path, is_filename=False):
     '''
     if is_filename:
         path = os.path.dirname(path)
-    if not os.path.exists(path):
+    if path and not os.path.exists(path):
         os.makedirs(path)
